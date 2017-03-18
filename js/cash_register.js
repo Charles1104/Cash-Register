@@ -6,34 +6,39 @@ var operator = null;
 var balance = 0;
 var accountingButton = false;
 var numberButton = document.querySelectorAll(".number");
+var negative = false;
 
 for (var i = 0; i < numberButton.length ; i++) {
   numberButton[i].addEventListener("click", function(){
 
     if (operator === "equal"){
+      console.log("test1");
       displayFunctions.clearDisplay();
       operator = null;
-      display.innerHTML += displayFunctions.decimalDollars((String(this.id.slice(6))));
+      display.innerHTML += displayFunctions.decimalDollars(this.id.slice(6));
     }
 
     else if (display.innerHTML === "+" || display.innerHTML === "-" || display.innerHTML === "*" || display.innerHTML === "/"){
+      console.log("test2");
       displayFunctions.clearDisplay();
-      display.innerHTML += displayFunctions.decimalDollars((String(this.id.slice(6))));
+      display.innerHTML = displayFunctions.decimalDollars(this.id.slice(6));
     }
 
     else if (accountingButton === true){
+      console.log("test3");
       displayFunctions.clearDisplay();
       accountingButton = false;
-      display.innerHTML = displayFunctions.decimalDollars((String(this.id.slice(6))));
+      display.innerHTML = displayFunctions.decimalDollars(this.id.slice(6));
     }
 
     else if (display.innerHTML === "") {
-      display.innerHTML += displayFunctions.decimalDollars((String(this.id.slice(6))));
+      console.log("test4");
+      display.innerHTML = displayFunctions.decimalDollars(this.id.slice(6));
     }
 
     else{
-      display.innerHTML += (String(this.id.slice(6)));
-      displayFunctions.decimalDollars(display.innerHTML);
+      console.log("test5");
+      display.innerHTML += this.id.slice(6);
     }
 
   });
@@ -86,6 +91,9 @@ document.querySelector("#buttonSubtract").addEventListener("click", function(){
     displayFunctions.clearDisplay();
     calculator.load(0);
   }
+  else if (display.innerHTML === ""){
+    display.innerHTML = displayFunctions.decimalDollars("-");
+  }
   else{
     calculator.load(displayFunctions.reverseDecimalDollars(display.innerHTML));
     operator = calculator.subtract;
@@ -109,6 +117,7 @@ document.querySelector("#buttonDivide").addEventListener("click", function(){
 document.querySelector("#buttonClear").addEventListener("click", function(){
   displayFunctions.clearDisplay();
   calculator.load(0);
+  operator = null;
 });
 
 document.querySelector("#buttonDepositCash").addEventListener("click", function(){
