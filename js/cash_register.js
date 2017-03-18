@@ -2,7 +2,7 @@
 var calculator = calculatorModule();
 var functions = app();
 var currentNumber = 0;
-var calculatorFunction;
+var calculatorFunction = null;
 var balance = 0;
 var accountingButton = false;
 
@@ -28,9 +28,12 @@ for (var i = 0; i < NumberButton.length ; i++) {
 }
 
 document.getElementById("buttonEqual").addEventListener("click", function(){
-  calculatorFunction(Number(display.innerHTML));
-  display.innerHTML = calculator.getTotal();
-  calculatorFunction = "equal";
+  console.log(calculatorFunction);
+  if (typeof calculatorFunction === "function"){
+    calculatorFunction(Number(display.innerHTML));
+    display.innerHTML = calculator.getTotal();
+    calculatorFunction = "equal";
+  }
 });
 
 
