@@ -5,10 +5,21 @@ var app = (function (){
     display.innerHTML = "";
   }
 
+  function decimalDollars(string){
+    return String("$ " + string) ;
+  }
 
-  return {
-    clearDisplay,
+  function reverseDecimalDollars(string){
+    return Number(string.slice(2));
+  }
+
+
+    return {
+      clearDisplay,
+      decimalDollars,
+      reverseDecimalDollars
   };
+
 
 });
 
