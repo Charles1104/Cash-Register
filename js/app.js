@@ -5,19 +5,24 @@ var app = (function (){
     display.innerHTML = "";
   }
 
-  function decimalDollars(string){
+  function dollars(string){
     return String("$ " + string) ;
   }
 
-  function reverseDecimalDollars(string){
+  function reverseDollars(string){
     return Number(string.slice(2));
   }
 
+  function decimal(string){
+    return Number(string).toFixed(2);
+  }
 
-    return {
-      clearDisplay,
-      decimalDollars,
-      reverseDecimalDollars
+
+  return {
+    clearDisplay,
+    dollars,
+    reverseDollars,
+    decimal
   };
 
 

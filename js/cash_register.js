@@ -6,38 +6,32 @@ var operator = null;
 var balance = 0;
 var accountingButton = false;
 var numberButton = document.querySelectorAll(".number");
-var negative = false;
 
 for (var i = 0; i < numberButton.length ; i++) {
   numberButton[i].addEventListener("click", function(){
 
     if (operator === "equal"){
-      console.log("test1");
       displayFunctions.clearDisplay();
       operator = null;
-      display.innerHTML += displayFunctions.decimalDollars(this.id.slice(6));
+      display.innerHTML += displayFunctions.dollars(this.id.slice(6));
     }
 
     else if (display.innerHTML === "+" || display.innerHTML === "-" || display.innerHTML === "*" || display.innerHTML === "/"){
-      console.log("test2");
       displayFunctions.clearDisplay();
-      display.innerHTML = displayFunctions.decimalDollars(this.id.slice(6));
+      display.innerHTML = displayFunctions.dollars(this.id.slice(6));
     }
 
     else if (accountingButton === true){
-      console.log("test3");
       displayFunctions.clearDisplay();
       accountingButton = false;
-      display.innerHTML = displayFunctions.decimalDollars(this.id.slice(6));
+      display.innerHTML = displayFunctions.dollars(this.id.slice(6));
     }
 
     else if (display.innerHTML === "") {
-      console.log("test4");
-      display.innerHTML = displayFunctions.decimalDollars(this.id.slice(6));
+      display.innerHTML = displayFunctions.dollars(this.id.slice(6));
     }
 
     else{
-      console.log("test5");
       display.innerHTML += this.id.slice(6);
     }
 
@@ -46,18 +40,30 @@ for (var i = 0; i < numberButton.length ; i++) {
 
 document.querySelector("#buttonEqual").addEventListener("click", function(){
   if (typeof operator === "function"){
-    if (operator === calculator.divide && displayFunctions.reverseDecimalDollars(display.innerHTML) === 0 ){
+    if (operator === calculator.divide && displayFunctions.reverseDollars(display.innerHTML) === 0 ){
       alert("You can not divide by 0");
       displayFunctions.clearDisplay();
     }
     else {
-      operator(displayFunctions.reverseDecimalDollars(display.innerHTML));
-      display.innerHTML = displayFunctions.decimalDollars(calculator.getTotal());
+      operator(displayFunctions.reverseDollars(display.innerHTML));
+      display.innerHTML = displayFunctions.dollars(calculator.getTotal());
       operator = "equal";
     }
   }
 });
 
+document.querySelector("#buttonDot").addEventListener("click", function(){
+  if (display.innerHTML === "" || display.innerHTML === "+" || display.innerHTML === "-" || display.innerHTML === "*" || display.innerHTML === "/"){
+    display.innerHTML = "$ 0.";
+  }
+  else if (display.innerHTML.indexOf(".") === -1){
+    display.innerHTML += ".";
+  }
+  else {
+    alert ("you can not enter two dots in a row");
+  }
+
+});
 
 document.querySelector("#buttonAdd").addEventListener("click", function(){
   if (display.innerHTML === "+" || display.innerHTML === "-" || display.innerHTML === "*" || display.innerHTML === "/"){
@@ -66,7 +72,7 @@ document.querySelector("#buttonAdd").addEventListener("click", function(){
     calculator.load(0);
     }
   else {
-    calculator.load(displayFunctions.reverseDecimalDollars(display.innerHTML));
+    calculator.load(displayFunctions.reverseDollars(display.innerHTML));
     operator = calculator.add;
     display.innerHTML = "+";
   }
@@ -79,7 +85,7 @@ document.querySelector("#buttonMultiply").addEventListener("click", function(){
     calculator.load(0);
   }
   else{
-    calculator.load(displayFunctions.reverseDecimalDollars(display.innerHTML));
+    calculator.load(displayFunctions.reverseDollars(display.innerHTML));
     operator = calculator.multiply;
     display.innerHTML = "*";
   }
@@ -92,10 +98,10 @@ document.querySelector("#buttonSubtract").addEventListener("click", function(){
     calculator.load(0);
   }
   else if (display.innerHTML === ""){
-    display.innerHTML = displayFunctions.decimalDollars("-");
+    display.innerHTML = displayFunctions.dollars("-");
   }
   else{
-    calculator.load(displayFunctions.reverseDecimalDollars(display.innerHTML));
+    calculator.load(displayFunctions.reverseDollars(display.innerHTML));
     operator = calculator.subtract;
     display.innerHTML = "-";
   }
@@ -108,7 +114,7 @@ document.querySelector("#buttonDivide").addEventListener("click", function(){
     calculator.load(0);
   }
   else {
-    calculator.load(displayFunctions.reverseDecimalDollars(display.innerHTML));
+    calculator.load(displayFunctions.reverseDollars(display.innerHTML));
     operator = calculator.divide;
     display.innerHTML = "/";
   }
@@ -121,27 +127,27 @@ document.querySelector("#buttonClear").addEventListener("click", function(){
 });
 
 document.querySelector("#buttonDepositCash").addEventListener("click", function(){
-  if (displayFunctions.reverseDecimalDollars(display.innerHTML) < 0){
+  if (displayFunctions.reverseDollars(display.innerHTML) < 0){
      alert("You can not deposit negative values");
   }
   else{
-    balance += displayFunctions.reverseDecimalDollars(display.innerHTML);
+    balance += displayFunctions.reverseDollars(display.innerHTML);
     displayFunctions.clearDisplay();
   }
 });
 
 document.querySelector("#buttonWithdrawCash").addEventListener("click", function(){
-  if (displayFunctions.reverseDecimalDollars(display.innerHTML) > balance){
+  if (displayFunctions.reverseDollars(display.innerHTML) > balance){
     alert("Your balance is currently " + balance + ". You cannot withdraw more than this amount. Please withdraw an amout up to your balance" );
   }
   else {
-    balance -= displayFunctions.reverseDecimalDollars(display.innerHTML);
+    balance -= displayFunctions.reverseDollars(display.innerHTML);
     displayFunctions.clearDisplay();
   }
 });
 
 document.querySelector("#buttonGetBalance").addEventListener("click", function(){
-  display.innerHTML = displayFunctions.decimalDollars(balance);
+  display.innerHTML = displayFunctions.dollars(balance);
   accountingButton = true;
 });
 

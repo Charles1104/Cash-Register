@@ -29,8 +29,14 @@
   width: 70px;
   height: 50px;
   margin: 5px;
-
 }
+
+.dot{
+  width: 70px;
+  height: 50px;
+  margin: 5px;
+}
+
 .operator{
   width: 100px;
   height: 50px;
